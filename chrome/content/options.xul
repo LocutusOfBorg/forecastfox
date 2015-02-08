@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+
+<prefwindow id="ff-prefwindow"
+            xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+            buttons="accept"
+            style="visibility: hidden;">
+  <script type="application/x-javascript" src="chrome://forecastfox/content/forecastfox.js" />
+  <script type="application/x-javascript">
+    Forecastfox.customize();
+    setTimeout(function() { close(); }, 0);
+  </script>
+</prefwindow>

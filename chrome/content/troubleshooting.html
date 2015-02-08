@@ -1,0 +1,29 @@
+<html>
+  <head>
+    <link rel="stylesheet" href="chrome://ffskin/content/options/options.css" type="text/css" charset="utf-8"/>
+    <script type="text/javascript" src="chrome://forecastfox/content/forecastfox.js"></script>
+    <script type="text/javascript">
+      function restore() {
+        if (confirm('Are you sure you want to reset all your Forecastfox settings? You will need to enter your locations and settings again.')) {
+          do_restore();
+        }
+        return false;
+      }
+    
+      function do_restore() {
+        var bgp = Forecastfox.services();
+        bgp.restore_all_defaults(true);
+        Forecastfox.customize();
+        window.close();
+      }
+    </script>
+  </head>
+  <body>
+    <div id="main" style="text-align: center; padding-top: 1em;">
+      <p id="troubleshooting">
+        If Forecastfox has stopped working, you can restore the initial settings by clicking the button below.
+      </p>
+      <button id="restore" onclick="restore();">restore all defaults</button>
+    </div>
+  </body>
+</html>

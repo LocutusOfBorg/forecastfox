@@ -1,0 +1,658 @@
+﻿
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+  <head>
+    <meta name="http-equiv" content="Content-type: text/html; charset=UTF-8"/>
+    <meta name="title" content="Forecastfox Weather" />
+    <meta name="description" content="Forecastfox is a browser extension that adds weather to Mozilla Firefox and Google Chrome." />
+     
+
+    <link rel="shortcut icon" type="image/png" href="chrome://ffskin/content/images/logo16.png" />
+    <link rel="image_src"  type="image/png" href="chrome://ffskin/content/images/logo128.png" />
+
+    <title>Forecastfox Weather</title>
+    
+  
+  <link rel="stylesheet" href="chrome://ffskin/content/options/customize.css" type="text/css" charset="utf-8"/>
+  <link rel="stylesheet" href="chrome://ffskin/content/options/base.css" type="text/css" charset="utf-8"/>
+  <link rel="stylesheet" href="chrome://ffskin/content/box-model.css" type="text/css" charset="utf-8"/>
+  <link rel="stylesheet" href="http://icons.getforecastfox.com/unpacked/preview.css" type="text/css" charset="utf-8"/>
+
+
+  <style>
+    #icon_pack_container li .image {
+      background-image: url(http://icons.getforecastfox.com/unpacked/preview.1.png);
+    }
+  </style>
+
+    
+
+
+    
+  
+<script type="text/javascript" src="chrome://forecastfox/content/options/forecastfox.js" charset="utf-8"></script>
+<script type="text/javascript" src="chrome://forecastfox/content/external/jquery-1.5.min.js" charset="utf-8"></script>
+<script type="text/javascript" src="chrome://forecastfox/content/external/jquery.client.js" charset="utf-8"></script>
+<script type="text/javascript" src="chrome://forecastfox/content/external/jquery.template.js" charset="utf-8"></script>
+<script type="text/javascript" src="chrome://forecastfox/content/external/jquery.localize.custom.js" charset="utf-8"></script>
+<script type="text/javascript" src="chrome://forecastfox/content/external/jquery.corner2.01.js" charset="utf-8"></script>
+<script type="text/javascript" src="chrome://forecastfox/content/external/jquery.tooltip.min.js" charset="utf-8"></script>
+<script type="text/javascript" src="chrome://forecastfox/content/external/class.js" charset="utf-8"></script>
+<script type="text/javascript" src="chrome://forecastfox/content/jquery.plugins.js" charset="utf-8"></script>
+<script type="text/javascript" src="chrome://forecastfox/content/datastore.js" charset="utf-8"></script>
+<script type="text/javascript" src="chrome://forecastfox/content/observers.js" charset="utf-8"></script>
+<script type="text/javascript" src="chrome://forecastfox/content/options-observers.js" charset="utf-8"></script>
+<script type="text/javascript" src="chrome://forecastfox/content/templator.js" charset="utf-8"></script>
+<script type="text/javascript" src="chrome://forecastfox/content/templates.js" charset="utf-8"></script>
+<script type="text/javascript" src="chrome://forecastfox/content/locale/supported.js" charset="utf-8"></script>
+<script type="text/javascript" src="chrome://forecastfox/content/i18n.js" charset="utf-8"></script>
+<script type="text/javascript" src="chrome://forecastfox/content/options/options-i18n.js" charset="utf-8"></script>
+<script type="text/javascript" src="chrome://forecastfox/content/options/bootstrap.js" charset="utf-8"></script>
+<script type="text/javascript" src="chrome://forecastfox/content/options/dispatcher.js" charset="utf-8"></script>
+<script type="text/javascript" src="chrome://forecastfox/content/options/locations.js" charset="utf-8"></script>
+<script type="text/javascript" src="chrome://forecastfox/content/options/options.js" charset="utf-8"></script>
+
+  
+  <script type="text/javascript">
+  var drag_icon = 'chrome://ffskin/content/images/drag.png';
+  var drag_hint_img = 'chrome://ffskin/content/images/drag_hint.png';
+  </script>
+  </head>
+  <body>
+   
+<div id="saved-callout-wrapper">
+  <div id="saved-callout" class="callout border-callout hidden">
+    <span rel="localize[options.saved]">
+      Saved
+    </span>
+  </div>
+</div>
+
+    <div id="outer_container">
+<!--
+      <a href="http://www.getforecastfox.com" id="home_link_OFF">
+        <img id="header" src="http://cdn.getforecastfox.com/media/images/header_logo.1.png" alt="logo" />
+      </a>
+-->
+      <div id="home_link">
+        <img id="header" src="chrome://ffskin/content/images/header_logo.png" alt="logo" />
+      </div>
+      <h3 class='subtitle'>Options</h3>
+      <div id="navigation">
+        
+  
+          
+
+
+
+
+
+
+
+<!--
+<ul>
+  <li class="alpha"><a href="http://www.getforecastfox.com/">home</a></li>
+  <li class="omega"><a href="http://groups.google.com/group/forecastfox-users/">support</a></li>
+</ul>
+-->
+        
+  
+  <form id="locale_selector" is_custom="true">
+    <div>
+      <img src="chrome://ffskin/content/images/globe.png"/>
+      <select class=".option"></select>
+    </div>
+  </form>
+
+      </div>
+      <div id="inner_container">
+        <div id="content" class="">
+          
+  <noscript class='callout border-callout'>
+  <p style="font-size: 150%">
+    Forecastfox requires JavaScript to be enabled.
+  </p>
+  <p>
+    You can enable JavaScript under the <i>Content</i> tab of
+    the Firefox preferences.
+  </p>
+</noscript>
+
+<div class='instructions callout border-callout firefox'
+     id='top-instructions' 
+     rel="localize[options.instructions.top]">  
+Your changes are applied immediately. If you're not sure what a setting does, 
+feel free to experiment! You can always go back or restore the default settings
+at the bottom of the page. You can return to this page by right clicking on
+Forecastfox and selecting "Options..." from the context menu.</div>
+
+<div id="migration-callout" class="callout border-callout hidden firefox">
+  <span style="float: right;">
+    (<a href="#" rel="localize[features.close]">close</a>)
+  </span>
+  <span id="migration-callout-content" rel="localize[options.firefoxmigration]">
+    Thank you for migrating.
+  </span>
+</div>
+
+<div id="language-callout" class="callout border-callout hidden">
+  <span rel="localize[options.notranslate]">
+    AccuWeather does not currently support this language.
+    As a result, the weather data and forecasts are not
+    translated. Please visit the feedback forums to request the 
+    translation.
+  </span>
+</div>
+
+  <div class="customize">
+
+    
+<div id="location" class="option_group">
+  <h3 rel="localize[options.locations.header]">Locations:</h3>
+  <!-- wrapping the search bar with an empty form is convenient: i can use jquery's $('form').submit(...) -->
+  <div rel="localize[options.current]" id="header-location"></div>
+  <form class="location_form">
+    <input rel="localize[options.search.instructions]" type="text" class="defaults search_bar"/>
+    <span class="search_button" style="background: url('chrome://ffskin/content/images/search.png'); background-repeat: no-repeat;"></span>
+    <span class="spinner" style="background: url('chrome://ffskin/content/images/sun_spinner.gif'); background-repeat: no-repeat; display:none"></span>
+  </form>
+
+  <p class="gmap-error hidden">
+    Location not found. Try searching again.
+  </p>
+
+  <p class="hidden" id="englishnames">
+    <span rel="localize[options.search.english]" class="option_label">
+      Use English for location names in results?
+    </span>
+  <span class="nobreak show_english_locations">
+    <span rel="localize[options.yes]" class="option yes">yes</span>
+    <span rel="localize[options.no]" class="option no">no</span>
+    </span>
+  </p>
+
+  <p class="firefox hidden">
+    <span rel="localize[options.geoip.header]">Use current location?</span>
+    <button rel="localize[options.geoip.button]" class="geolocate">
+      detect current location
+    </button>
+   </p>
+
+  <div id="boxes">
+    <div id="search_dialogue" class="window">
+      <img class='close' src="chrome://ffskin/content/images/close.gif" width=12 height=12></img>
+      <span class="gmap-error hidden">
+         Location not found. Try searching again.
+      </span>
+      <form class="location_form">
+        <input rel="localize[options.search.instructions]" type="text" class="defaults search_bar"/>
+        <span class="search_button" style="background: url('chrome://ffskin/content/images/search.png'); background-repeat: no-repeat;"></span>
+        <span class="spinner" style="background: url('chrome://ffskin/content/images/sun_spinner.gif'); background-repeat: no-repeat; display:none"></span>
+      </form>
+
+      <div id="map_canvas"></div>
+    </div>
+    <div id="mask"></div>
+  </div>
+  <div style="clear: both;"></div>
+</div>
+
+<hr class='previous'/>
+
+<div id="previous_locations" class="option_group previous">
+  <h3 rel="localize[options.previous]">Previous locations:</h3>
+  <div id='previous_locations_list' class="option_group"></div>
+</div>
+
+  <div class='option_group'>
+    <div class='rotate_locations previous'>
+      <input type="checkbox" id='rotate_locations' class='option' />
+      <label for='rotate_locations' rel="localize[options.locations.rotate]">
+        Automatically switch locations every
+         <input type="text" value=5 size=2 onclick='return false'/>
+        minutes
+      </label>
+    </div>
+    <div class='display_location firefox'>
+      <input type='checkbox' class='option' id='display_location'/>
+      <label for='display_location' rel="localize[options.locations.display_name]">
+        Display location name on toolbar
+      </label>
+    </div>
+  </div>
+
+
+
+    <hr />
+    <div id="units" class="option_group">
+  <h3 rel="localize[options.units.header]">Units:</h3>                        
+  
+  <div class="unit_system">
+    <span class="option" id="american" rel="localize[options.units.american]">&deg;F, mph, mi</span>
+    <span class="option" id="metric" rel="localize[options.units.metric]">&deg;C, km/h, km</span>
+    <span class="option" id="custom" rel="localize[options.units.custom]">Custom</span>
+  </div>   
+
+  <div class="custom_units hidden">
+    <div id="multiselect-callout" class="callout border-callout" 
+         rel="localize[options.units.multiselect]">
+      You can select multiple units by holding <span class='pc'>ctrl</span><span class='mac'>&#x2318;</span> while clicking.
+    </div>
+    
+    <table class="option_group">
+      <!-- note: css class names for each option match exactly the names in converter.js 
+           the class name might be different than the display name. examples: 
+           the class "kph" has display "km/h". the class "h12" has display "12-hour"
+      -->
+      <tr class="temperature"> 
+        <td><span class="option_label" rel="localize[options.units.temp.header]">Temperature:</span></td>
+        <td>
+          <span class="option" id="f" rel="localize[options.units.temp.f]">Fahrenheit (&deg;F)</span>
+          <span class="option" id="c" rel="localize[options.units.temp.c]">Celsius (&deg;C)</span>
+          <span class="option" id="k" rel="localize[options.units.temp.k]">Kelvin (&deg;K)</span>            
+        </td>
+      </tr>
+  
+      <tr class="speed"> 
+        <td><span class="option_label" rel="localize[options.units.wind.header]">Wind:</span></td>
+        <td>
+          <span class="option" id="mph" rel="localize[options.units.wind.mph]">miles per hour (mph)</span>
+          <span class="option" id="kph" rel="localize[options.units.wind.kmh]">kilometers per hour (km/h)</span>
+          <span class="option" id="ms" rel="localize[options.units.wind.ms]">meters per second (ms)</span>
+          <span class="option" id="bft" rel="localize[options.units.wind.bft]">Beaufort (Bft)</span>
+          <span class="option" id="knots" rel="localize[options.units.wind.knots]">knots</span>
+        </td>
+      </tr>
+  
+      <tr class="time"> 
+        <!-- don't need examples for time: preview will update to show the difference -->                
+        <td><span class="option_label" rel="localize[options.units.time.header]">Time:</span></td>
+        <td>
+          <span class="option" id="h12" rel="localize[options.units.time.h12]">12-hour</span>
+          <span class="option" id="h24" rel="localize[options.units.time.h24]">24-hour</span>
+        </td>
+      </tr>
+  
+      <tr class="pressure"> 
+        <!-- undecided: include more units and show abbreviations only? -->
+        <td><span class="option_label" rel="localize[options.units.pressure.header]">Pressure:</span></td>
+        <td>
+          <span class="option" id="inhg" rel="localize[options.units.pressure.inhg]">inHg</span>
+          <span class="option" id="mmhg" rel="localize[options.units.pressure.mmhg]">mmHg</span>
+          <span class="option" id="psi" rel="localize[options.units.pressure.psi]">psi</span>
+          <!-- <span class="option" id="kPa">kPa</span> -->
+          <span class="option" id="mb" rel="localize[options.units.pressure.mbar]">mbar</span>
+          <span class="option" id="hpa" rel="localize[options.units.pressure.hpa]">hPa</span>
+          <!-- <span class="option" id="atm">atm</span>  -->
+          <!-- <span class="option" id="at">at</span> -->            
+        </td>
+      </tr>
+  
+      <tr class="distance-lng">                         
+        <td><span class="option_label" rel="localize[options.units.visibility.header]">Visibility:</span></td>
+        <td>
+          <span class="option" id="mi" rel="localize[options.units.visibility.mi]">miles (mi)</span>
+          <span class="option" id="km" rel="localize[options.units.visibility.km]">kilometers (km)</span>
+          <span class="option" id="m" rel="localize[options.units.visibility.m]">meters (m)</span>
+          <span class="option" id="nm" rel="localize[options.units.visibility.nm]">nautical miles (nm)</span>
+        </td>
+      </tr>
+  
+      <tr class="distance-shrt"> 
+        <td><span class="option_label" rel="localize[options.units.precip.header]">Precipitation:</span></td>
+        <td>
+          <span class="option" id="inches" rel="localize[options.units.precip.inches]">inches (in)</span>
+          <span class="option" id="cm" rel="localize[options.units.precip.cm]">centimeters (cm)</span>
+          <span class="option" id="mm" rel="localize[options.units.precip.mm]">millimeters (mm)</span>
+        </td>
+      </tr> 
+    </table>
+  </div>
+</div>
+
+    <hr class='firefox'/>
+
+    
+
+<div id="theme" class="option_group firefox">
+  <h3 rel="localize[options.theme.icons]">Icons:</h3>
+  <div class="icon_pack option_group">
+    <ul id="icon_pack_container" style="">
+    </ul>
+    <div style='clear:left'></div>
+    <a href="#" class="more" rel="localize[options.theme.more]">
+      more...
+    </a>
+  </div>
+</div>
+
+    <hr class='firefox'/>
+
+    
+
+<div id="toolbar-options" class="option_group firefox">
+  <h3 rel="localize[options.toolbar.header]">Toolbar Display:</h3>
+  <table>
+    <tr class="show_swa">
+      <td class="option_label">
+        <span class="icon">
+          <img src="chrome://ffskin/content/default/small/swa.png"/>
+        </span><span rel="localize[options.toolbar.swa]">>
+        Severe weather alerts?
+        </span>
+      </td>
+      <td class="nobreak">
+        <span rel="localize[options.yes]" class="option yes">yes</span> /
+        <span rel="localize[options.no]" class="option no">no</span>
+      </td>
+    </tr>
+    <tr class="show_radar">
+      <td class="option_label">
+        <span class="icon">
+          <img src="chrome://ffskin/content/default/small/radar.png"/>
+        </span><span rel="localize[options.toolbar.radar]">
+        Radar (or satellite)?
+      </td>
+      <td class="nobreak">
+        <span rel="localize[options.radar.large]" class="option" id="radar-large">
+          large
+        </span> /
+        <span rel="localize[options.radar.medium]" class="option" id="radar-medium">
+          medium
+        </span> /
+        <span rel="localize[options.radar.small]" class="option" id="radar-small">
+          small
+        </span> /
+        <span rel="localize[options.radar.none]" class="option" id="radar-none">
+          none
+        </span> /
+        <span rel="localize[options.radar.custom]" class="option" id="radar-custom">
+          custom
+        </span>
+    </tr>
+    <tr class="show_radar_custom" style="display:none;">
+      <td class="option_label" colspan="2">
+        <div>
+          <span rel="localize[options.radar.url]">url:</span>
+          <input style="width: 90%" type="text" id="radar_custom-url" />
+        </div>
+        <div>
+          <span rel="localize[options.radar.width]">width (px):</span>
+          <input size="7" type="text" id="radar_custom-width"/>
+          &nbsp;&nbsp;
+          <span rel="localize[options.radar.height]">height (px):</span>
+          <input size="7" type="text" id="radar_custom-height"/>
+        </div>
+
+      </td>
+
+    <tr class="show_hourly">
+      <td class="option_label">
+        <span class="icon">
+          <img src="chrome://ffskin/content/default/small/hourly.png"/>
+        </span><span rel="localize[options.toolbar.hourly]">
+        Link to hourly forecast?
+        </span>
+      </td>
+      <td class="nobreak">
+        <span rel="localize[options.yes]" class="option yes">yes</span> /
+        <span rel="localize[options.no]" class="option no">no</span>
+      </td>
+    </tr>
+    <tr class="show_day5">
+      <td class="option_label">
+        <span class="icon">
+          <img src="chrome://ffskin/content/default/small/5day.png"/>
+        </span><span rel="localize[options.toolbar.day5]">
+        Link to 5-day forecast?
+        </span>
+      </td>
+      <td class="nobreak">
+        <span rel="localize[options.yes]" class="option yes">yes</span> /
+        <span rel="localize[options.no]" class="option no">no</span>
+      </td>
+    </tr>
+    <tr class="show_cc">
+      <td class="option_label" rel="localize[options.toolbar.cc]">
+        Current conditions?
+      </td>
+      <td class="nobreak">
+        <span rel="localize[options.yes]" class="option yes">yes</span> /
+        <span rel="localize[options.no]" class="option no">no</span>
+      </td>
+    </tr>
+    <tr class="show_days_or_nights">
+      <td class="option_label" rel="localize[options.toolbar.daysornights]">
+        Days or nights?
+      </td>
+      <td class="nobreak">
+        <span id="daynight-days" class="option" rel="localize[options.toolbar.days]">days</span> /
+        <span id="daynight-nights" class="option" rel="localize[options.toolbar.nights]">nights</span> /
+        <span id="daynight-days-nights" class="option" rel="localize[options.toolbar.daysnights]">days & nights</span>
+      </td>
+    </tr>
+    <tr class="days">
+      <td class="option_label" rel="localize[options.toolbar.forecast]">
+        How many forecast days would you like to see?
+      </td>
+      <td class="nobreak">
+        <span class="option" id="days0">0</span>
+        <span class="option" id="days1">1</span>
+        <span class="option" id="days2">2</span>
+        <span class="option" id="days3">3</span>
+        <span class="option" id="days4">4</span>
+        <span class="option" id="days5">5</span>
+        <span class="option" id="days6">6</span>
+        <!--<span class="option" id="days7">7</span>-->
+      </td>
+    </tr>
+    <tr class="label_display">
+      <td class="option_label" rel="localize[options.toolbar.labelslength]">
+        Show text labels for how many of the icons?
+      </td>
+      <td class="nobreak">
+        <span class="option" id="labels0">0</span>
+        <span class="option" id="labels1">1</span>
+        <span class="option" id="labels2">2</span>
+        <span class="option" id="labels3">3</span>
+        <span class="option" id="labels4">4</span>
+        <span class="option" id="labels5">5</span>
+        <span class="option" id="labels6">6</span>
+        <span class="option" id="labels7">7</span>
+        <span class="option" id="labels8">8</span>
+        <span class="option" id="labels9">9</span>
+        <span class="option" id="labels10">10</span>
+        <span class="option" id="labels11">11</span>
+        <span class="option" id="labels12">12</span>
+        <span class="option" id="labels13">13</span>
+      </td>
+    </tr>
+    <tr class="position">
+      <td class="option_label">
+        <span class="icon">
+          <img src="chrome://ffskin/content/images/drag.png"/>
+        </span><span rel="localize[options.positions.header]">
+        Toolbar position?
+        </span>
+      </td>
+      <td>
+        <span rel="localize[options.positions.instructions]" id="toolbar-position-label">
+          move Forecastfox by dragging the
+          <img src="chrome://ffskin/content/images/drag.png" class='drag-target'></img>
+          icon
+        </span>
+        <span id='drag-hint'>?</span>
+
+      </td>
+    </tr>
+    <tr class="show_separators">
+      <td class="option_label" rel="localize[options.toolbar.separators]">
+        Show separators?
+      </td>
+      <td class="nobreak">
+        <span rel="localize[options.yes]" class="option yes">yes</span> /
+        <span rel="localize[options.no]" class="option no">no</span>
+      </td>
+    </tr>
+  </table>
+  <div id='drag-hint-tooltip' class="tooltip hidden">
+    <div id='drag-hint-tooltip-text' style='margin: 5px;' rel="localize[options.position.dragtip]">
+      The drag icon, pictured below, will flash yellow while you view this
+      tip.
+      <div style='text-align: center; margin: 5px 0;'>
+        <img src="chrome://ffskin/content/images/drag_hint.png" width=172 height=21/>
+      </div>
+      You can move Forecastfox by dragging the icon to another toolbar.
+    </div>
+  </div>
+</div>
+
+
+    <hr class='firefox'/>
+
+    <div id="weather-data" class="option_group">
+  <h3 rel="localize[options.data.header]">Optional Weather Data:</h3>
+  <table id="data_booleans">
+    <tr class="humidity">
+      <td class="option_label" rel="localize[options.data.humidity]">
+        Humidity?
+      </td>
+      <td>
+          <span class="option yes" rel="localize[options.yes]">yes</span> /
+          <span class="option no" rel="localize[options.no]">no</span>
+      </td>
+    </tr>
+
+    <tr class="precipitation">
+      <td class="option_label" rel="localize[options.data.precipitation]">
+        Precipitation?
+      </td>
+      <td>
+          <span class="option yes" rel="localize[options.yes]">yes</span> /
+          <span class="option no" rel="localize[options.no]">no</span>
+      </td>
+    </tr>
+
+    <tr class="pressure">
+      <td class="option_label" rel="localize[options.data.pressure]">
+        Pressure?
+      </td>
+      <td>
+          <span class="option yes" rel="localize[options.yes]">yes</span> /
+          <span class="option no" rel="localize[options.no]">no</span>
+      </td>
+    </tr>
+
+    <tr class="uv">
+      <td class="option_label" rel="localize[options.data.uv]">
+        UV Radiation?
+      </td>
+      <td>
+          <span class="option yes" rel="localize[options.yes]">yes</span> /
+          <span class="option no" rel="localize[options.no]">no</span>
+      </td>
+    </tr>
+
+    <tr class="visibility">
+      <td class="option_label" rel="localize[options.data.visibility]">Visibility Conditions?</td>
+      <td>
+          <span class="option yes" rel="localize[options.yes]">yes</span> /
+          <span class="option no" rel="localize[options.no]">no</span>
+      </td>
+    </tr>
+
+    <tr class="wind">
+      <td class="option_label" rel="localize[options.data.wind]">Wind?</td>
+      <td>
+          <span class="option yes" rel="localize[options.yes]">yes</span> /
+          <span class="option no" rel="localize[options.no]">no</span>
+      </td>
+    </tr>
+
+    <tr class="quality hidden">
+      <td class="option_label" rel="localize[options.data.air]">Air Quality?</td>
+      <td>
+          <span class="option yes" rel="localize[options.yes]">yes</span> /
+          <span class="option no" rel="localize[options.no]">no</span>
+      </td>
+    </tr>
+
+    <tr class="moon">
+      <td class="option_label" rel="localize[options.data.moon]">Moon Phases?</td>
+      <td>
+          <span class="option yes" rel="localize[options.yes]">yes</span> /
+          <span class="option no" rel="localize[options.no]">no</span>
+      </td>
+    </tr>
+  </table>
+</div>
+
+
+    <hr class='firefox'/>
+
+    <div id="troubleshooting" class="option_group">
+  <h3 rel="localize[options.restore.header]">Troubleshooting:</h3>
+  <p class="option_group" style="line-height: normal"
+     rel="localize[options.restore.message]">
+    If Forecastfox has stopped working, you can restore the initial
+    settings by clicking the button below.
+  </p>
+  <div style="text-align: center;" >
+    <button rel="localize[options.restore.button]"
+            onclick="return reset_all_settings()">restore all defaults</button>
+  </div>
+</div>
+
+
+
+    
+<div id="info_template" class="hidden">
+  <div id="${id}" class="geocode_infowindow">
+    <img class='vhidden throbber' style="float:right" width=28 height=28 
+         src="chrome://ffskin/content/images/sun_spinner.gif"/>
+    <p>${name}</p>
+    <p class='geocode_error vhidden'>
+      <span rel="localize[options.search.accuerror]" style='color: red'>
+        Unknown error or location not found on AccuWeather.com.
+      </span>
+      <a href="#" rel="localize[options.locations.tryagain]" class="tryagain">try again</a>
+    </p>
+    <p>
+      <button class='.option' style='font-size: 100%; vertical-align: top' 
+              rel="localize[options.locations.select]" disabled='true'>
+              select location
+      </button>
+      <img class='vhidden checkmark' width=28 height=28 src="chrome://ffskin/content/images/checkmark28.png"/>
+      <a href="#" rel="localize[options.locations.zoom]" class="zoom" style="float:right">
+         zoom to location
+      </a>
+    </p>
+  </div>
+</div>
+  </div>
+
+
+  <div class='instructions callout border-callout' style='text-align: center;'
+       rel='localize[options.instructions.bottom]'>
+    Your changes are applied immediately. You can close the
+    page when you're done.
+  </div>
+
+        </div>
+        <div style="clear: both;"></div>
+      </div>
+      <div id="footer">
+        
+          &copy;2011 Ensolis, data by
+          <a href="http://www.accuweather.com/?partner=forecastfox">AccuWeather.com&reg;</a>
+        
+      </div>
+    </div>
+    
+  <div id="scratch_space" class="hidden"></div>
+  <div id="extension-to-web" class="hidden"></div>
+  <div id="web-to-extension" class="hidden"></div>
+  <div id="i18n-strings" class="hidden"></div>
+
+  </body>
+</html>

@@ -1,0 +1,141 @@
+.ff-header {
+  margin-bottom: .35em;
+  display: block;
+  font-weight: bold;
+  /*text-align: center;*/
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  color: #DFDFDF;
+}
+
+.ff-strong { font-weight: bold; }
+
+.ff-content {
+  /*width: 18em;*/
+  padding: 0;
+  margin: 0;
+  color: black;
+}
+
+.ff-content .ff-temperature {
+  font-size: 2em;
+}
+
+.ff-content .ff-temperature.ff-two {
+  font-size: 1.5em;
+}
+
+.ff-content .ff-temperature.ff-three {
+  font-size: 1.25em;
+}
+
+.ff-content .ff-spacer { height: .2em; }
+
+.ff-content .ff-description {
+  text-align: center;
+  padding: 0;
+}
+
+.ff-content .ff-image {
+  vertical-align: middle;
+  text-align: center;
+
+  -moz-box-align: center;
+  -moz-box-pack: center;
+  -moz-box-orient: vertical;
+
+
+}
+
+.ff-hidden {
+  display: none !important;
+}
+
+.ff-content-top { /*D9E2E1*/
+  border-radius: 5px;
+  -moz-border-radius: 5px;
+  background-color: #C1DDFE;
+
+  background: -moz-radial-gradient(30% 30%, cover, #D1EDFF 35%, #50A7E7 75%) repeat scroll 0 0 transparent;
+
+
+  margin-bottom: 1px;
+}
+
+.ff-content-bottom {
+  background-color: #D2D2D2;
+
+  background:-moz-radial-gradient(30% 30%, cover, #DADADA 35%, #828282 80%) repeat scroll 0 0 transparent;
+
+
+  border-radius: 5px;
+  -moz-border-radius: 5px;
+}
+
+.ff-content-top a:hover {
+  background-color: #C0C8FE;
+}
+
+.ff-content-bottom a:hover {
+  background-color: #BCBCBC;/*#D2E6EA;*/
+}
+
+.ff-content table {
+  text-align: left;
+  margin: 0 auto;
+  /*padding: .1em 0 .5em;*/
+  width: 100%
+}
+
+.ff-content td {
+  white-space: normal;
+  padding-left:20px;
+  text-indent:-20px;
+}
+
+.ff-radar .ff-large {
+  height: 480px;
+  width: 640px;
+}
+
+.ff-radar .ff-medium {
+  height: 300px;
+  width: 400px;
+}
+
+.ff-radar .ff-small {
+  height: 175px;
+  width: 234px;
+}
+
+.ff-details-label {
+  padding-left: 2em;
+}
+
+.ff-details-value {
+  margin-right: 2em;
+}
+
+.ff-day-header {
+  font-weight: bold;
+  vertical-align: top;
+  padding-top: 5px;
+}
+
+.ff-right { text-align: right; float: right; }
+
+.ff-high { color: red; }
+.ff-low { color: blue; }
+
+.ff-xsmall { font-size: 60%; }
+.ff-small { font-size: 70%; }
+.ff-normal { font-size: 75%; }
+.ff-medium { font-size: 80%; }
+.ff-large { font-size: 90%; }
+.ff-xlarge { font-size: 100%; }
+
+
+.chrome, .chromium { display: none !important; }
+
+

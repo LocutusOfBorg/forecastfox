@@ -1,0 +1,149 @@
+*[ff-dragover="right"] {
+  border-right: 2px solid #000000;
+  -moz-appearance: none;
+}
+
+*[ff-dragover="left"] {
+  border-left: 2px solid #000000;
+  -moz-appearance: none;
+}
+
+ffpanel {
+  -moz-binding: url("chrome://forecastfox/content/bindings.xml#ff-panel");
+  -moz-box-orient: horizontal;
+  -moz-box-align: center;
+  -moz-box-pack: center;
+  padding-left: 3px;
+  padding-right: 3px;
+}
+
+#forecastfox-drag-target {
+  cursor: move;
+}
+
+#forecastfox-drag-target image {
+  -moz-border-radius: 15px;
+  background-color: LightGray;
+}
+
+#forecastfox-drag-target.highlight image {
+  background-color: Yellow;
+}
+
+ffpanel.separators {
+  border-right: 1px solid ThreeDShadow;
+  border-left: 1px solid ThreeDHighlight;
+}
+
+ffpanel[link] {
+  cursor: pointer;
+}
+
+ffpanel[part=night] label {
+  font-style: italic;
+}
+
+#forecastfox-toolbar[OS=Darwin] ffpanel label {
+  padding-right: 4px;
+}
+
+#forecastfox-toolbar[OS=Darwin] ffpanel[part=night] label {
+  padding-right: 6px;
+}
+
+ffpanel[part=night] label {
+  padding-right: 4px;
+}
+
+ffpanel label {
+  display: none;
+  padding-left: 0;
+  margin: auto 0;
+  padding-right: 2px;
+}
+
+ffpanel.text-image label, ffpanel.text label {
+  display: block;
+}
+
+ffpanel image {
+  display: none;
+}
+
+ffpanel.text-image image, ffpanel.image image {
+  display: block;
+}
+
+ffpanel:first-child {
+  border-left: none;
+}
+
+ffpanel:last-child {
+  border-right: none;
+}
+
+tooltip[type="forecastfox"] {
+  -moz-binding: url("chrome://forecastfox/content/bindings.xml#ff-tooltip") !important;
+  -moz-appearance: none !important;
+  -moz-border-radius: 5px;
+  background: rgba(54, 57, 61, 0.80) none no-repeat top left !important;
+  white-space: nowrap;
+  padding: 3px;
+  font-size: 14px;
+}
+
+tooltip[type="forecastfox"] .ff-radar .ff-large img {
+  width: 640px;
+  height: 480px;
+}
+
+tooltip[type="forecastfox"] .ff-radar .ff-medium img {
+  width: 400px;
+  height: 300px;
+}
+
+tooltip[type="forecastfox"] .ff-radar .ff-small img {
+  width: 234px;
+  height: 175px;
+}
+
+.ff-header {
+  color: #c0f1fe;
+  font-weight: bold;
+  width: 18em;
+}
+
+#forecastfox-toolbar {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+#toolbar-menubar > #forecastfox-toolbar {
+  color: inherit;
+}
+
+#toolbar-menubar > #forecastfox-toolbar[OS=Linux] {
+  color: -moz-menubartext;
+}
+
+#toolbar-menubar:-moz-lwtheme> #forecastfox-toolbar {
+  color: inherit;
+}
+
+#forecastfox-toolbar li:not(:last-child) {
+  border-right: 1px inset black;
+}
+
+.ff-swa {
+  font-weight: bold;
+  padding-left: .5em;
+}
+
+.ff-hidden {
+  display: none;
+}
+
+.ff-rtl {
+  direction: rtl;
+}

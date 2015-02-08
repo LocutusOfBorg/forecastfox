@@ -1,0 +1,109 @@
+.ff-hbox {
+
+
+	display: -moz-box !important;
+	-moz-box-orient: horizontal;
+	-moz-box-align: stretch;
+
+	display: box !important;
+	box-orient: horizontal;
+	box-align: stretch;
+}
+ 
+.ff-hbox > * {
+
+
+	-moz-box-flex: 0;
+
+	box-flex: 0;
+	display: block;
+}
+ 
+.ff-vbox {
+
+
+	display: -moz-box !important;
+	-moz-box-orient: vertical;
+	-moz-box-align: stretch;
+
+	display: box !important;
+	box-orient: vertical;
+	box-align: stretch;
+}
+ 
+.ff-vbox > * {
+
+
+	-moz-box-flex: 0;
+
+	box-flex: 0;
+	display: block;
+}
+ 
+.ff-spacer {
+
+
+	-moz-box-flex: 1;
+
+	box-flex: 1;
+}
+ 
+.ff-reverse {
+	-webkit-box-direction: reverse;
+	-moz-box-direction: reverse;
+	box-direction: reverse;
+}
+ 
+.ff-boxFlex0 {
+	-webkit-box-flex: 0;
+	-moz-box-flex: 0;
+	box-flex: 0;
+}
+ 
+.ff-boxFlex1, .ff-boxFlex {
+	-webkit-box-flex: 1;
+	-moz-box-flex: 1;
+	box-flex: 1;
+}
+ 
+.ff-boxFlex2 {
+	-webkit-box-flex: 2;
+	-moz-box-flex: 2;
+	box-flex: 2;
+}
+ 
+.ff-boxGroup1 {
+	-webkit-box-flex-group: 1;
+	-moz-box-flex-group: 1;
+	box-flex-group: 1;
+}
+ 
+.ff-boxGroup2 {
+	-webkit-box-flex-group: 2;
+	-moz-box-flex-group: 2;
+	box-flex-group: 2;
+}
+ 
+.ff-start {
+	-webkit-box-pack: start;
+	-moz-box-pack: start;
+	box-pack: start;
+}
+ 
+.ff-end {
+	-webkit-box-pack: end;
+	-moz-box-pack: end;
+	box-pack: end;
+}
+ 
+.ff-center {
+	-webkit-box-pack: center;
+	-moz-box-pack: center;
+	box-pack: center;
+}
+
+/* include this right now as a hack */
+
+.chrome, .chromium { display: none !important; }
+
+

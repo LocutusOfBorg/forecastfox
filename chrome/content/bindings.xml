@@ -1,0 +1,66 @@
+<?xml version="1.0"?>
+
+<!--****************************************************************************
+  Copyright (c) 2008 Ensolis, LLC. All Rights Reserved.
+  ***************************************************************************-->
+<!DOCTYPE bindings SYSTEM "chrome://forecastfox/locale/forecastfox.dtd" >
+
+<bindings xmlns="http://www.mozilla.org/xbl"
+          xmlns:xul="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+          xmlns:xhtml="http://www.w3.org/1999/xhtml"
+          xmlns:xbl="http://www.mozilla.org/xbl">
+
+  <binding id="ff-base">
+    <resources>
+      <stylesheet src="chrome://forecastfox/skin/bindings.css"/>
+    </resources>
+  </binding>
+  
+  <binding id="ff-panel" display="xul:button"
+           extends="chrome://forecastfox/content/bindings.xml#ff-base">
+    <content>
+      <xul:label class="ff-label" xbl:inherits="value=label,crop"/>
+      <xul:image class="ff-image" validate="never" xbl:inherits="src=image, onerror=imageerr"/>
+    </content>
+    <implementation>
+      <property name="label"
+                onget="return this.getAttribute('label');"
+                onset="this.setAttribute('label',val); return val;"/>
+      <property name="image"
+                onget="return this.getAttribute('image');"
+                onset="this.setAttribute('image',val); return val;"/>
+      <property name="link"
+                onget="return this.getAttribute('link');"
+                onset="this.setAttribute('link',val); return val;"/>
+      <property name="feature"
+                onget="return this.getAttribute('feature');"
+                onset="this.setAttribute('feature',val); return val;"/>
+    </implementation>
+    <handlers>
+      <handler event="click" button="0" action="if (this.link) Forecastfox.open(this.link, 'Link', 'Click', feature._id)"/>
+      <handler event="click" button="1" action="if (this.link) Forecastfox.open(this.link, 'Link', 'Click', feature._id)"/>
+    </handlers>
+  </binding>
+  
+  <binding id="ff-tooltip" extends="chrome://global/content/bindings/popup.xml#tooltip">
+    <content>
+      <xhtml:div id="forecastfox-tooltip-content" type="content" />
+    </content>
+    
+    <implementation>
+      <property name="label"
+                onget="return this.getAttribute('label');"
+                onset="this.setAttribute('label',val); return val;"/>
+      <property name="image"
+                onget="return this.getAttribute('image');"
+                onset="this.setAttribute('image',val); return val;"/>
+      <property name="template"
+                onset="document.getElementById('forecastfox-tooltip-content').innerHTML = val; return val"
+                onget="return document.getElementById('forecastfox-tooltip-content').innerHTML"/>
+    </implementation>
+    
+    <handlers>
+      <handler event="popupshowing" action="ForecastfoxOverlay.render_tooltip()"/>
+    </handlers>
+  </binding>
+</bindings>

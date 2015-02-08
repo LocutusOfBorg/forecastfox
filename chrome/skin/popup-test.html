@@ -1,0 +1,325 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+<html>
+  <head>
+    <title>Forecastfox</title>
+    <link rel="stylesheet" type="text/css" href="/skin/popup.css" />
+    <script type="text/javascript" src="/content/external/jquery-1.3.2.js" charset="utf-8"></script>
+    <script type="text/javascript" src="/content/external/jquery.template.js" charset="utf-8"></script> 
+    <script type="text/javascript" src="/content/external/jquery.localize.js" charset="utf-8"></script>
+
+    <script type="text/javascript" src="/content/external/class.js" charset="utf-8"></script>
+    <script type="text/javascript" src="/content/logging.js" charset="utf-8"></script>
+    <script type="text/javascript" src="/content/loghandlers.js" charset="utf-8"></script>
+    <script type="text/javascript" src="/content/observers.js" charset="utf-8"></script>
+    <script type="text/javascript" src="/content/templator.js" charset="utf-8"></script>
+    <script type="text/javascript" src="/content/features.js" charset="utf-8"></script>
+
+    <script type="text/javascript" src="/content/forecastfox.js" charset="utf-8"></script>   
+    <script type="text/javascript" src="/content/popup.js" charset="utf-8"></script>
+    <script type="text/javascript" charset="utf-8">
+      var logging = new Logging(LoggingLevels.NOTSET, [{"level": LoggingLevels.NOTSET, "handler": ConsoleLogHandler, "format": "%(when):  %(name), %(level), %(message)"}]);
+      var observers = new Observers(logging);
+      var localize = {};
+      var popup = new Popup(logging, observers, localize);
+      observers.add("background-page-ready", function() { popup.ready(logging, observers, localize); });
+      $(document).ready(function() { popup.ready(logging, observers, localize); });
+    </script>          
+  </head>
+
+<body>
+    <div id="popup">
+      <div id="locations" class="small">
+        <span class="" rel="localize[locations.recent]" id="locations-label" style="color: rgb(223, 223, 223);">List of your recently selected locations that you've viewed in short term:</span>
+        <span id="locations-contents"><span id="loc-1" class="location">Stonington, CT, USA</span> <span id="loc-2" class="location">New York, NY (10002)</span> <span id="loc-3" class="location">Indianola, IA, USA</span> </span>
+        <a class="hidden" style="color: rgb(192, 241, 254);" target="_blank" rel="localize[locations.switch]" href="/content/options/options.html">switch locations to another location</a>
+      </div>
+      <div id="messages">
+      <div id="swa"> 
+        <a href="http://spotlight.accuweather.com/dyndoc/goto/spotlight/adc_qxa3503/forecastfox.gif%7Cwww.accuweather.com/watches-warnings.asp?partner=forecastfox&amp;zipcode=02139&amp;metric=0" target="_blank" rel="localize[swa]">Attention! A sever weather alert is active for your location, which is currently Cambridge, MA, USA.</a>  
+      </div>
+    </div>
+      <ul id="navigation">
+      <li class="" id="cc" onclick="popup.renderDetails('cc')" style="vertical-align: middle;">
+        <img style="float: left; margin: 5px 0px 0px 5px;" src="chrome://forecastfox/skin/default/large/18.png">
+        <span style="float: left; margin: 5px 0px 0px 5px;" class="small">
+          <strong style="font-size: 110%;">Current conditions</strong> <br>
+          13°C
+        </span>
+        
+      </li>
+    
+      <li class="" id="forecast-0-day" onclick="popup.renderDetails('forecast-0-day')" style="vertical-align: middle;">
+        <img style="float: left; margin: 5px 0px 0px 5px;" src="chrome://forecastfox/skin/default/large/18.png">
+        <span style="float: left; margin: 5px 0px 0px 5px;" class="small">
+          <strong style="font-size: 110%;">The Day for today</strong> <br>
+          High temperature 13°C<br>Low temperature 1°C
+        </span>
+        
+      </li>
+    
+      <li class="" id="forecast-1-day" onclick="popup.renderDetails('forecast-1-day')" style="vertical-align: middle;">
+        <img style="float: left; margin: 5px 0px 0px 5px;" src="chrome://forecastfox/skin/default/large/04.png">
+        <span style="float: left; margin: 5px 0px 0px 5px;" class="small">
+          <strong style="font-size: 110%;">The day for tomorrow</strong> <br>
+          High temperature 6°C<br>Low temperature -3°C
+        </span>
+        
+      </li>
+    
+      <li class="ui-state-selected" id="forecast-2-day" onclick="popup.renderDetails('forecast-2-day')" style="vertical-align: middle;">
+        <img style="float: left; margin: 5px 0px 0px 5px;" src="chrome://forecastfox/skin/default/large/02.png">
+        <span style="float: left; margin: 5px 0px 0px 5px;" class="small">
+          <strong style="font-size: 110%;">Wednesday</strong> <br>
+          High temperature 5°C<br>Low temperature -4°C
+        </span>
+        
+      </li>
+    
+      <li class="" id="forecast-3-day" onclick="popup.renderDetails('forecast-3-day')" style="vertical-align: middle;">
+        <img style="float: left; margin: 5px 0px 0px 5px;" src="chrome://forecastfox/skin/default/large/03.png">
+        <span style="float: left; margin: 5px 0px 0px 5px;" class="small">
+          <strong style="font-size: 110%;">Thursday</strong> <br>
+          High temperature 6°C<br>Low temperature -6°C
+        </span>
+        
+      </li>
+    
+      <li class="" id="forecast-4-day" onclick="popup.renderDetails('forecast-4-day')" style="vertical-align: middle;">
+        <img style="float: left; margin: 5px 0px 0px 5px;" src="chrome://forecastfox/skin/default/large/03.png">
+        <span style="float: left; margin: 5px 0px 0px 5px;" class="small">
+          <strong style="font-size: 110%;">Friday</strong> <br>
+          High temperature -3°C<br>Low temperature -12°C
+        </span>
+        
+      </li>
+    
+      <li class="" id="forecast-5-day" onclick="popup.renderDetails('forecast-5-day')" style="vertical-align: middle;">
+        <img style="float: left; margin: 5px 0px 0px 5px;" src="chrome://forecastfox/skin/default/large/03.png">
+        <span style="float: left; margin: 5px 0px 0px 5px;" class="small">
+          <strong style="font-size: 110%;">Saturday</strong> <br>
+          High temperature -2°C<br>Low temperature -9°C
+        </span>
+        
+      </li>
+    
+      <li class="" id="forecast-6-day" onclick="popup.renderDetails('forecast-6-day')" style="vertical-align: middle;">
+        <img style="float: left; margin: 5px 0px 0px 5px;" src="chrome://forecastfox/skin/default/large/02.png">
+        <span style="float: left; margin: 5px 0px 0px 5px;" class="small">
+          <strong style="font-size: 110%;">Sunday</strong> <br>
+          High temperature -2°C<br>Low temperature -7°C
+        </span>
+        
+      </li>
+    </ul>
+      <div id="details">
+        <div id="details-content">
+      <div class="details-top">
+      <h2 rel="localize[forecast.header]">Wednesday</h2>
+      <div class="normal links">
+        <a href="http://spotlight.accuweather.com/dyndoc/goto/spotlight/adc_qxa3504/forecastfox.gif%7Cwww.accuweather.com/us/ma/cambridge/02139/forecast-details.asp?partner=forecastfox&amp;fday=3&amp;metric=0" target="_blank" rel="localize[details]">details forecast link</a>&nbsp;&nbsp;
+        <a class="" href="http://spotlight.accuweather.com/dyndoc/goto/spotlight/adc_qxa3504/forecastfox.gif%7Cwww.accuweather.com/us/ma/cambridge/02139/forecast-hourly.asp?hbhday=3&amp;hbhhour=55&amp;partner=forecastfox&amp;metric=0" target="_blank" rel="localize[hourly]">hourly forecast link</a>
+        <span class="day-part"><em rel="localize[forecast.day]">the day part of forecast</em></span>
+      </div>
+      <div style="display: inline">
+        <div style="position: relative;">
+          <img src="chrome://forecastfox/skin/default/large/02.png">
+        </div>
+        <div style="position: relative;">
+          <div>Sunshine and patchy clouds</div>
+          <div><strong style="font-size: 1.3em;">
+            <span rel="localize[forecast.high]">High temperature</span>
+            <span style="font-size: 130%;">5°C</span></strong></div>
+           <div rel="localize[forecast.feelslikeh]">(the high temperature feels like -1°C)</div>
+        </div>
+      </div>
+      <dl class="normal">
+        <dt rel="localize[maxuv]">Maximum UV for the given day:</dt>
+        <dd>Low</dd>
+        <dt rel="localize[winds]">Value for winds:</dt>
+        <dd>W 21 kph</dd>
+        <dt rel="localize[precipitation]">Precipitation amount for the given day:</dt>
+        <dd>0.00 cm</dd>
+        <dt rel="localize[sunrise]">Sunrise time for the given day:</dt>
+        <dd>7:03 AM</dd>
+      </dl>
+      <div class="bottom"></div>
+    </div>
+      <div class="details-bottom">
+      <div class="normal links">
+        <a href="http://spotlight.accuweather.com/dyndoc/goto/spotlight/adc_qxa3504/forecastfox.gif%7Cwww.accuweather.com/us/ma/cambridge/02139/forecast-details.asp?partner=forecastfox&amp;fday=3&amp;metric=0" target="_blank" rel="localize[details]">details forecast link</a>&nbsp;&nbsp;
+        <a class="" href="http://spotlight.accuweather.com/dyndoc/goto/spotlight/adc_qxa3504/forecastfox.gif%7Cwww.accuweather.com/us/ma/cambridge/02139/forecast-hourly.asp?hbhday=3&amp;hbhhour=67&amp;partner=forecastfox&amp;metric=0" target="_blank" rel="localize[hourly]">hourly forecast link</a>
+        <span class="day-part">
+          <em rel="localize[forecast.night]">the night part of forecast</em></span>
+      </div>    
+      <div>
+        <div class="details-left"><img src="chrome://forecastfox/skin/default/large/35.png"></div>
+        <div class="details-right normal">
+          <div>Partly cloudy</div>
+          <div><strong style="font-size: 1.3em;">
+            <span rel="localize[forecast.low]">Low temperature</span> 
+            <span style="font-size: 130%;">-4°C</span></strong></div>
+          <div rel="localize[forecast.feelslikel]">(the low temperature feels like -11°C</div>
+        </div>
+        <div class="bottom"></div>
+      </div>
+      <dl class="normal">
+        <dt rel="localize[winds]">Value for winds:</dt>
+        <dd>WSW 16 kph</dd>
+        <dt rel="localize[precipitation]">Precipitation amount for the given day:</dt>
+        <dd>0.00 cm</dd>
+        <dt rel="localize[sunset]">Sunset time for the given day:</dt>
+        <dd>4:52 PM</dd>
+        <dt rel="localize[moon]">Moon phase for the given day:</dt>
+        <dd>Waxing Gibbous</dd>
+      </dl>
+      <div class="bottom"></div>
+    </div>
+    </div>
+      </div>
+      <div id="footer" class="bottom small" style="width: 100%; text-align: center;">
+        <a style="float: left; color: rgb(192, 241, 254); padding: 0.5em;" target="_blank" id="options_link" href="options/options.html">
+           <em rel="localize[options]">options forecast link</em></a>
+        <span style="float: right; color: rgb(223, 223, 223); padding: 0.5em;" rel="localize[copyright]">©2010 Forecastfox Weather Corp, weather data provided by AccuWeather.com®</span>
+        <!-- <span style="float: right; color: #DFDFDF">
+          <em>Last updated: <span id="update-time"></span></em>
+        </span>-->
+        <div class="bottom"></div>
+      </div>
+    </div>
+    
+    <div id="navigation-template" class="hidden">
+      <li id="${id}" onclick="popup.renderDetails('${id}')" style="vertical-align: middle;">
+        <img style="float: left; margin: 5px 0px 0px 5px;" src="$%7Bimage%7D">
+        <span style="float: left; margin: 5px 0px 0px 5px;" class="small">
+          <strong style="font-size: 110%;">${day}</strong> <br>
+          ${label}
+        </span>
+        
+      </li>
+    </div>
+    
+    <div id="cc-template" class="hidden">
+      <div class="details-top">
+        <h2 rel="localize[cc.header]">The current weather conditions in ${location-name} presented below</h2>
+        <div class="normal links">
+          <a rel="localize[details]" href="$%7Blinks-quicklook%7D" target="_blank">details forecast link</a>&nbsp;&nbsp;
+          <a rel="localize[hourly]" href="$%7Blinks-hourly%7D" target="_blank">hourly forecast link</a>&nbsp;&nbsp;
+          <a rel="localize[day5]" href="$%7Blinks-day5%7D" target="_blank">5-day forecast link</a>&nbsp;&nbsp;
+          <a rel="localize[day15]" href="$%7Blinks-day15%7D" target="_blank">15-day forecast link</a>&nbsp;&nbsp;
+        </div>
+        <div>
+          <span class="details-left">
+            <img src="$%7Bimage%7D">
+          </span>
+          <div class="details-right normal">
+            <div>${text-shrt}</div>
+            <div><strong style="font-size: 1.5em;">${temperature}</strong></div>
+            <div rel="localize[cc.feelslike]">(the temperature feels like ${realfeel})</div>
+          </div>
+          <div style="clear: both;"></div>
+        </div>
+        <dl class="normal">
+          <dt rel="localize[winds]">Value for winds:</dt>
+          <dd>${wind-direction} ${wind-speed}</dd>
+          <dt rel="localize[humidity]">Percentage humidity value:</dt>
+          <dd>${humidity}</dd>
+          <dt rel="localize[pressure]">Pressure value for given day:</dt>
+          <dd>${pressure-value}</dd>
+          <!--<dt>UV Index:</dt>
+          <dd>${uv-text} (${uv-index})</dd>-->
+          <dt rel="localize[visibility]">Visibility value for given day:</dt>
+          <dd>${visibility}</dd>
+          
+        </dl>
+        <div class="bottom"></div>  
+      </div>
+      <div class="details-bottom">
+        <div class="normal links">
+          <a href="$%7Bradar-links-regional-static%7D" target="_blank" rel="localize[static]">static radar link</a>&nbsp;&nbsp;
+          <a href="$%7Bradar-links-regional-animated%7D" target="_blank" rel="localize[animated]">animated radar link</a>
+        </div>
+        <div class="normal" style="padding: 5px 0pt 0pt 2em;">
+          <a href="$%7Bradar-links-regional-animated%7D" style="border: medium none;" target="_blank">
+            <img src="$%7Bradar-images-regional-large%7D">
+          </a>
+        </div>
+        <div class="bottom"></div>
+      </div>
+    </div>
+    
+    <div id="forecast-template" class="hidden">
+      <div class="details-top">${day-panel}</div>
+      <div class="details-bottom">${night-panel}</div>
+    </div>
+    
+    <div id="forecast-day-template" class="hidden">
+      <h2 rel="localize[forecast.header]">Below is the weather for ${day} in ${location-name}</h2>
+      <div class="normal links">
+        <a href="$%7Blinks-details%7D" target="_blank" rel="localize[details]">details forecast link</a>&nbsp;&nbsp;
+        <a class="${enable-hourly}" href="$%7Blinks-hourly%7D" target="_blank" rel="localize[hourly]">hourly forecast link</a>
+        <span class="day-part"><em rel="localize[forecast.day]">the day part of forecast</em></span>
+      </div>
+      <div>
+        <span class="details-left">
+          <img src="$%7Bimage%7D">
+        </span>
+        <div class="details-right normal">
+          <div>${text-shrt}</div>
+          <div><strong style="font-size: 1.3em;">
+            <span rel="localize[forecast.high]">High temperature</span>
+            <span style="font-size: 130%;">${temperature-high}</span></strong></div>
+           <div rel="localize[forecast.feelslikeh]">(the high temperature feels like ${realfeel-high})</div>
+        </div>
+        <div class="bottom"></div>
+      </div>
+      <dl class="normal">
+        <dt rel="localize[maxuv]">Maximum UV for the given day:</dt>
+        <dd>${uv-text}</dd>
+        <dt rel="localize[winds]">Value for winds:</dt>
+        <dd>${wind-direction} ${wind-speed}</dd>
+        <dt rel="localize[precipitation]">Precipitation amount for the given day:</dt>
+        <dd>${precip-total}</dd>
+        <dt rel="localize[sunrise]">Sunrise time for the given day:</dt>
+        <dd>${sun-rise}</dd>
+      </dl>
+      <div class="bottom"></div>
+    </div>
+    
+    <div id="forecast-night-template" class="hidden">
+      <div class="normal links">
+        <a href="$%7Blinks-details%7D" target="_blank" rel="localize[details]">details forecast link</a>&nbsp;&nbsp;
+        <a class="${enable-hourly}" href="$%7Blinks-hourly%7D" target="_blank" rel="localize[hourly]">hourly forecast link</a>
+        <span class="day-part">
+          <em rel="localize[forecast.night]">the night part of forecast</em></span>
+      </div>    
+      <div>
+        <div class="details-left"><img src="$%7Bimage%7D"></div>
+        <div class="details-right normal">
+          <div>${text-shrt}</div>
+          <div><strong style="font-size: 1.3em;">
+            <span rel="localize[forecast.low]">Low temperature</span> 
+            <span style="font-size: 130%;">${temperature-low}</span></strong></div>
+          <div rel="localize[forecast.feelslikel]">(the low temperature feels like ${realfeel-low}</div>
+        </div>
+        <div class="bottom"></div>
+      </div>
+      <dl class="normal">
+        <dt rel="localize[winds]">Value for winds:</dt>
+        <dd>${wind-direction} ${wind-speed}</dd>
+        <dt rel="localize[precipitation]">Precipitation amount for the given day:</dt>
+        <dd>${precip-total}</dd>
+        <dt rel="localize[sunset]">Sunset time for the given day:</dt>
+        <dd>${sun-set}</dd>
+        <dt rel="localize[moon]">Moon phase for the given day:</dt>
+        <dd>${moon-phase}</dd>
+      </dl>
+      <div class="bottom"></div>
+    </div>
+    
+    <div id="swa-template" class="hidden">
+      <div id="${id}"> 
+        <a href="$%7Blink%7D" target="_blank" rel="localize[swa]">Attention! A sever weather alert is active for your location, which is currently ${location}.</a>  
+      </div>
+    </div>
+</body>

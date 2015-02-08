@@ -1,7 +1,7 @@
 ## package registration
-content forecastfox jar:chrome/forecastfox.jar!/content/ contentaccessible=yes
-skin forecastfox classic/1.0 jar:chrome/forecastfox.jar!/skin/
-content ffskin jar:chrome/forecastfox.jar!/skin/ contentaccessible=yes
+content forecastfox chrome/content/ contentaccessible=yes
+skin forecastfox classic/1.0 chrome/skin/
+content ffskin chrome/skin/ contentaccessible=yes
 
 ## overlays
 overlay chrome://browser/content/browser.xul chrome://forecastfox/content/overlay.xul application={ec8030f7-c20a-464f-9b0e-13a3a9e97384}

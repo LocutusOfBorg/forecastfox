@@ -1,0 +1,94 @@
+<?xml version="1.0"?>
+
+<?xml-stylesheet href="chrome://forecastfox/skin/overlay.css" type="text/css"?>
+<?xml-stylesheet href="chrome://forecastfox/skin/popup-shared.css" type="text/css"?>
+
+<overlay xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+         id="forecastfox-overlay" windowtype="forecastfox:overlay">
+
+  <script type="application/x-javascript" src="chrome://forecastfox/content/header.js" />
+  <script type="application/x-javascript" src="chrome://forecastfox/content/forecastfox.js" />
+  <script type="application/x-javascript" src="chrome://forecastfox/content/options-content-script.js" />
+  <script type="application/x-javascript" src="chrome://forecastfox/content/overlay.js" />
+  <script type="application/x-javascript" src="chrome://forecastfox/content/templates.js" />
+  <script type="application/x-javascript" src="chrome://forecastfox/content/reposition.js" />
+
+  <script type="application/x-javascript" src="chrome://global/content/nsDragAndDrop.js" />
+  <script type="application/x-javascript" src="chrome://global/content/nsTransferable.js" />
+
+  <script type="application/x-javascript">
+    window.addEventListener("load", function() { ForecastfoxOverlay.onLoad(); }, false);
+    window.addEventListener("unload", function() { ForecastfoxOverlay.onUnload(); }, false);
+  </script>
+
+
+  <toolbarpalette id="BrowserToolbarPalette">
+    <toolbarspring id="forecastfox-menubar-spring" flex="1"/>
+  </toolbarpalette>
+
+  <statusbar id="status-bar">
+    <statusbarpanel id="forecastfox-toolbar" insertafter="page-report-button"
+                    context="forecastfox-popup">
+      <ffpanel label="... Forecastfox Weather ..."/>
+    </statusbarpanel>
+  </statusbar>
+
+   <vbox id="browser-bottombox">
+	<statusbar id="forecastfox-bottombox" hidden="true" align="right"/>
+   </vbox>
+
+  <window id="main-window">
+    <popupset id="forecastfox-popupset">
+      <tooltip id="forecastfox-tooltip-swa" noautohide="true" type="forecastfox"/>
+      <tooltip id="forecastfox-tooltip-radar" noautohide="true" type="forecastfox"/>
+      <tooltip id="forecastfox-tooltip-cc" noautohide="true" type="forecastfox"/>
+      <tooltip id="forecastfox-tooltip-forecast-0-day" noautohide="true" type="forecastfox"/>
+      <tooltip id="forecastfox-tooltip-forecast-0-night" noautohide="true" type="forecastfox"/>
+      <tooltip id="forecastfox-tooltip-forecast-1-day" noautohide="true" type="forecastfox"/>
+      <tooltip id="forecastfox-tooltip-forecast-1-night" noautohide="true" type="forecastfox"/>
+      <tooltip id="forecastfox-tooltip-forecast-2-day" noautohide="true" type="forecastfox"/>
+      <tooltip id="forecastfox-tooltip-forecast-2-night" noautohide="true" type="forecastfox"/>
+      <tooltip id="forecastfox-tooltip-forecast-3-day" noautohide="true" type="forecastfox"/>
+      <tooltip id="forecastfox-tooltip-forecast-3-night" noautohide="true" type="forecastfox"/>
+      <tooltip id="forecastfox-tooltip-forecast-4-day" noautohide="true" type="forecastfox"/>
+      <tooltip id="forecastfox-tooltip-forecast-4-night" noautohide="true" type="forecastfox"/>
+      <tooltip id="forecastfox-tooltip-forecast-5-day" noautohide="true" type="forecastfox"/>
+      <tooltip id="forecastfox-tooltip-forecast-5-night" noautohide="true" type="forecastfox"/>
+      <tooltip id="forecastfox-tooltip-forecast-6-day" noautohide="true" type="forecastfox"/>
+      <tooltip id="forecastfox-tooltip-forecast-6-night" noautohide="true" type="forecastfox"/>
+      <tooltip id="forecastfox-tooltip-forecast-7-day" noautohide="true" type="forecastfox"/>
+      <tooltip id="forecastfox-tooltip-forecast-7-night" noautohide="true" type="forecastfox"/>
+      <menupopup id="forecastfox-popup" position="after_start">
+<!--
+        <menuitem hidden="true" localize="menu.improve" label="Help Improve Forecastfox®"
+                  oncommand="Forecastfox.contextMenu('community')"/>
+        <menuitem hidden="true" localize="menu.homepage" label="Forecastfox® Homepage"
+                  oncommand="Forecastfox.contextMenu('homepage')"
+                  class="menuitem-iconic"
+                  image="chrome://ffskin/content/images/logo16.png"/>
+-->
+        <menuitem localize="menu.accuweather" label="AccuWeather.com® Homepage"
+                  oncommand="Forecastfox.contextMenu('accuweather')"/>
+<!--
+        <menuitem hidden="true" localize="menu.share" label="Recommend to friends..."
+                  oncommand="Forecastfox.contextMenu('share')"/>
+-->
+        <menuseparator/>
+        <menuitem id="forecastfox-options" localize="menu.options" default="true" label="Options..."
+                  oncommand="Forecastfox.contextMenu('customize')"/>
+        <menuseparator/>
+        <menuitem localize="menu.troubleshooting" label="Troubleshooting..."
+                  oncommand="Forecastfox.contextMenu('troubleshooting')"/>
+        <menuitem localize="menu.refresh" label="Reload Weather Data"
+                  oncommand="Forecastfox.contextMenu('reload')" accesskey="r"/>
+        <menu id="forecastfox-locations" localize="menu.locations" label="Switch Locations">
+          <menupopup id="forecastfox-locations-popup" onpopupshowing="ForecastfoxOverlay.render_location_selector();">
+            <menuitem label="New location..." oncommand="Forecastfox.contextMenu('newLocation')"
+                      id="forecastfox-new-location" localize="menu.newlocation"/>
+            <menuseparator/>
+          </menupopup>
+        </menu>
+      </menupopup>
+    </popupset>
+  </window>
+</overlay>

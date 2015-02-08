@@ -1,0 +1,536 @@
+.subtitle {
+  font-size: 26px;
+  margin-top: 68px;
+}
+
+.instructions {
+  font-size: 97%;
+}
+
+noscript {
+  background-color: RoyalBlue !important;
+  display: block;
+  font-size: 150%;
+  font-weight: bold;
+  text-align: center;
+}
+
+/* Locales */
+
+#locale_selector {
+  margin-left: 666px;
+  margin-top: -40px;
+}
+
+#locale_selector[is_custom='true'] {
+    float: right;
+    list-style-image: none;
+    list-style-position: outside;
+    list-style-type: none;
+    margin-bottom: 0;
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 0;
+    padding-bottom: 0;
+    padding-left: 50px;
+    padding-right: 10px;
+    padding-top: 10px;
+}
+
+#locale_selector img {
+  vertical-align: middle;
+  width: 60px;
+  height: 32px;
+}
+
+/* Option Groups */
+
+.option_group {
+  /*margin: 15px 15px;*/
+  line-height: 2em;
+  padding-bottom: 5px;
+}
+
+hr {
+  border: none;
+  border-bottom: 1px solid #dfdfdf;
+}
+
+.option_group > *:not(h3) {
+  margin-left: 19px;
+}
+
+.option_label {
+  margin-right: 8px;
+  line-height: normal;
+}
+
+.option {
+  padding: 2px 4px;
+  cursor: pointer;
+  border-radius: 5px;
+  -moz-border-radius: 5px;
+  white-space: nowrap;
+}
+
+.option:hover:not(.selected) {
+  background-color: #DFDFDF;
+}
+
+.selected {
+  background-color: #CFDFF7;
+}
+
+
+/* Locations */
+
+.location_form .spinner {
+  margin-left:-35px;
+  margin-right:5px;
+  vertical-align:middle;
+}
+
+.location_form button {
+  margin-left: -70px;
+}
+
+.location_form {
+  position: relative;
+}
+
+.location_form .search_button {
+  position: absolute;
+  top: 19px;
+  right: 0px;
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+}
+
+.location_form .spinner {
+  position: absolute;
+  top: 11px;
+  right: 18px;
+  width: 28px;
+  height: 28px;
+}
+
+.location_form input {
+  padding-right: 46px;
+  border-radius: 5px;
+  -moz-border-radius: 5px;
+}
+
+.search_bar {
+/*background-image:url(../i/fieldUnfocusBg.pngr);*/
+  background-color: #FAFAFA;
+  border:1px solid #B2B2B2;
+  font-size:1em;
+  margin-top: 10px;
+  margin-bottom: 5px;
+  padding: 5px 0 5px 8px;
+  color: black;
+}
+
+#boxes .location_form {
+  width: 850px;
+}
+
+#boxes .search_bar {
+  width: 796px;
+}
+
+#location > .location_form {
+  width: 789px;
+}
+
+#location > .location_form .search_bar {
+  width: 735px;
+}
+
+.search_bar.defaults {
+  color: #656565;
+  text-align: center;
+}
+.search_bar:not(.defaults) {
+  text-align: left;
+  background-color: white;
+}
+
+.search_bar:focus {
+  border-color:#7FCCFF;
+}
+
+#previous_locations .loccontainer, #search_results .loccontainer {
+  list-style: none;
+  display: inline-block;
+  white-space:nowrap;
+}
+
+.option_group input[type=checkbox] {
+  vertical-align: text-top;
+}
+
+.option_group input {
+  font-size: 1em;
+}
+
+.option_group label {
+  /*font-weight: bold;*/
+}
+
+.loccontainer .option {
+  float: left;
+  margin-bottom: 5px;
+}
+
+#previous_locations a {
+  text-decoration: none;
+}
+#previous_locations a:hover {
+  text-decoration: underline;
+}
+
+button {
+  font-size: 100%;
+}
+
+.remove, .cancel, .rename, .save {
+  margin-left: 2px;
+  cursor: pointer;
+  /*color: purple;*/
+}
+
+.location-rename {
+  font-size: 1em;
+  background-color: #FAFAFA;
+  border:1px solid #B2B2B2;
+  font-size:1em;
+  margin-bottom: 5px;
+  padding: 5px 0 5px 8px;
+  float: left;
+  border-radius: 5px;
+  -moz-border-radius: 5px;
+}
+
+.geocode_infowindow {
+  /*padding-bottom: 20px;*/
+  width: 22em;
+}
+
+.rotate_locations .option {
+  display: inline-block;
+}
+
+.geocode_infowindow p {
+  margin-top: .2em;
+  margin-bottom: .2em;
+}
+
+.remove:hover, .cancel:hover, .rename:hover, .save:hover {
+  text-decoration: underline;
+}
+
+.geocode_infowindow .spinner {
+  position: absolute;
+  vertical-align: text-bottom;
+  display: none;
+  margin: 5px 0px 0px 10px;
+}
+
+#search_error, .gmap-error {
+  color: red;
+  margin: 5px 18px;
+}
+
+#search_results {
+  margin-bottom: 40px;
+}
+
+/* Units */
+
+#units table {
+  border-collapse: collapse;
+  margin-right: 6px;
+}
+
+#units table tr td:first-child {
+  text-align: right;
+}
+
+#units table td, #units table th {
+  padding: 2px 8px;
+  border: 1px solid #DFDFDF;
+}
+
+#units table .option {
+  position: relative;
+}
+
+.sindex {
+color:gray;
+font-size:75%;
+line-height:1em;
+position:absolute;
+right:-8px;
+top:0px;
+}
+
+
+#toolbar-position table {
+  border-collapse: collapse;
+}
+
+#toolbar-position td {
+  border: 1px solid black;
+  text-align: center;
+}
+
+.available:hover {
+  background-color: red;
+  cursor: pointer;
+}
+
+#units .option {
+  margin-right: 10px;
+}
+
+#main p {
+  margin-top: .5em;
+  margin-bottom: .5em;
+}
+
+
+.days_option .option_label {
+  margin-right: 10px;
+}
+
+#units_preview ul {
+  list-style-type: none;
+}
+
+.internal_link {
+  text-decoration: underline;
+}
+
+
+.drag-target {
+  vertical-align: middle;
+  -moz-border-radius: 10px;
+  background-color: lightgray;
+  width: 15px;
+  height: 15px;
+}
+
+#drag-hint {
+  color: purple;
+  text-decoration: underline;
+}
+
+#drag-hint-tooltip img {
+  width: 172px;
+  height: 21px;
+}
+
+/* Utilities */
+.hidden { display: none !important; }
+.vhidden { visibility: hidden; }
+
+
+/* Callout */
+.callout {
+  position: relative;
+  margin: 10px auto;
+  padding: 18px 20px;
+  background-color: #eef4f9;
+  clear: both;
+  /* easy rounded corners for modern browsers */
+  -moz-border-radius: 6px;
+  -webkit-border-radius: 6px;
+  border-radius: 6px;
+}
+
+#tooltip {
+  display: none;
+  position: absolute;
+  border: 1px solid #111;
+  background-color: #eef4f9;
+  -moz-border-radius: 6px;
+  -webkit-border-radius: 6px;
+  border-radius: 6px;
+  border: 1px solid #c5d9e8;
+  padding: 5px;
+  margin: 0;
+  opacity: 0.95;
+  font-weight: normal;
+  font-size: 85%;
+  width: 20em;
+  font-family: Verdana,Arial,Helvetica,sans-serif;
+}
+
+#tooltip h3, #tooltip div { margin: 0; }
+
+#units .callout {
+  padding: 0;
+  margin-right: 6px;
+  text-align: center;
+  line-height: 2em;
+}
+
+.callout .notch {
+  position: absolute;
+  top: -10px;
+  left: 20px;
+  margin: 0;
+  border-top: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-bottom: 10px solid #eef4f9;
+  padding: 0;
+  width: 0;
+  height: 0;
+}
+
+.border-callout { border: 1px solid #c5d9e8; padding: 17px 19px; }
+.border-callout .border-notch { border-bottom-color: #c5d9e8; top: -11px; }
+
+#saved-callout {
+  display: inline-block;
+  padding: 8px 5px 5px 5px;
+}
+
+#saved-callout-wrapper {
+  margin-top: -13px;
+  position: fixed;
+  text-align: center;
+  top: 0;
+  width: 100%;
+  z-index: 100001;
+  font-size: 95%;
+}
+
+.restore {
+  z-index: 1000;
+}
+
+
+/* Z-index of #mask must lower than #boxes .window */
+#mask {
+  position: absolute;
+  z-index: 9000;
+  background-color: #000;
+  display: none;
+  top: 0;
+  left: 0;
+  opacity: 0.8;
+}
+
+#boxes .window {
+  position: fixed;
+  width: 850px;
+  display: none;
+  z-index: 9999;
+  padding: 10px 20px 20px;
+  background-color: white;
+  border: 20px solid black;
+  border-radius: 5px;
+  -moz-border-radius: 5px;
+}
+
+/* Customize your modal window here, you can add background image too */
+#boxes #map_canvas {
+  width: 850px;
+  line-height: normal;
+  z-index: 100000 !important;
+  border: 1px solid black;
+}
+
+#boxes #search_dialogue .close {
+  position: absolute;
+  right: 3px;
+  top: 4px;
+  cursor: pointer;
+}
+
+#search_dialogue .gmap-error {
+  position: absolute;
+  left: 20px;
+  top: -10px;
+  margin: 0;
+  font-size: 80%;
+}
+
+.customize {
+  border: 1px solid #dfdfdf;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.remove, .rename, .save {
+  font-size: 85%;
+  color: purple;
+}
+
+.loccontainer:hover .links {
+  visibility: visible;
+}
+
+.links {
+  float: left;
+  visibility: hidden;
+  line-height: 1em;
+  margin-left: 5px;
+}
+
+.links * {
+}
+
+
+/*
+
+TODO: this block is at the top of customize.html
+
+#icon_pack_container li .image {
+  background-image: url({{ "unpacked/preview.png"|icons }});
+}
+
+
+*/
+
+#icon_pack_container { margin: 0; }
+
+.icon_pack .option {
+  list-style: none;
+  display: inline-block;
+  margin: 2px;
+  text-align: center;
+  vertical-align: top;
+}
+
+#theme .more {
+  color: purple;
+  font-size: 85%;
+  font-weight: normal;
+}
+
+.icon_pack .option .image {
+  background-color: #CDCDCD;
+  border: 1px dotted black;
+}
+
+.icon_pack .option div:not(.image) {
+  font-size: 85%;
+  line-height: normal;
+  margin-top: 3px;
+}
+
+.show_radar_custom .option_label {
+  line-height: 2em;
+  padding-left: 1em;
+}
+
+.icon {
+    float: left;
+    display: block;
+    margin-left: -20px;
+}

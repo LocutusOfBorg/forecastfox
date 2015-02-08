@@ -1,0 +1,48 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>Forecastfox</title>
+    <link rel="stylesheet" type="text/css" href="chrome://forecastfox/skin/overlay.css" />
+    <link rel="stylesheet" type="text/css" href="chrome://forecastfox/skin/popup.css" />
+    
+    <script type="application/javascript" src="chrome://forecastfox/content/forecastfox.js"></script>    
+    <script type="application/javascript" src="chrome://forecastfox/content/templates.js"></script>
+    <script type="application/javascript">
+      function go() {
+        var bgp = Forecastfox.services();
+        var templator = new bgp.Templator(bgp.logging, document);
+        var feature = bgp.features['radar'];
+		var outer = FF_TEMPLATES.tooltip
+    	var layout = FF_TEMPLATES.details_double_layout,
+        	table = templator.render(FF_TEMPLATES.details_table, { 
+      			'image': bgp.themes.largeImage('${icon}')
+    		});
+              layout = FF_TEMPLATES.details_single_layout;
+	var data = {};
+      data['panel'] = feature.general(templator, FF_TEMPLATES.radar);
+    layout = templator.render(layout, data);
+    layout = templator.render(outer, 
+        { 'header': bgp.locations.selected().name, 'details': layout});
+
+        tooltip = document.getElementById('text-div');
+		//dump("TOOLTIP: " + layout +"\n");        
+        while (tooltip.hasChildNodes()) tooltip.removeChild(tooltip.firstChild);
+
+        var ue = Components.classes["@mozilla.org/feed-unescapehtml;1"].
+        getService(Components.interfaces.nsIScriptableUnescapeHTML);
+        var frag = ue.parseFragment(layout, false, null, tooltip);
+        tooltip.appendChild(frag);
+      }
+    </script>
+  </head>
+
+  <body onload="go();">
+  
+   <div id="text-div" class="details">
+   
+   </div>
+  </body>  
+</html>
+
