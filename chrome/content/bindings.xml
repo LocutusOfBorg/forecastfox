@@ -54,9 +54,6 @@
       <property name="image"
                 onget="return this.getAttribute('image');"
                 onset="this.setAttribute('image',val); return val;"/>
-      <property name="template"
-                onset="document.getElementById('forecastfox-tooltip-content').innerHTML = val; return val"
-                onget="return document.getElementById('forecastfox-tooltip-content').innerHTML"/>
     </implementation>
     
     <handlers>

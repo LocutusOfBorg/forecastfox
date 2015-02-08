@@ -8,7 +8,7 @@ var forecastfox_s3 = {};
 //------------------------------------------------------------------------------
 forecastfox_s3.addon = {
 	version : '0',
-	donateURL: 'https://addons.mozilla.org/addon/screengrab-fix-version/contribute/installed/',
+	donateURL: 'https://addons.mozilla.org/addon/forecastfox-fix-version/contribute/installed/',
 	prefService: Components.classes["@mozilla.org/preferences-service;1"].getService(Components.interfaces.nsIPrefService)
 };
 
@@ -18,7 +18,7 @@ forecastfox_s3.addon.get_version = function() {
 	AddonManager.getAddonByID('forecastfox@s3_fix_version', function(addon) {
 		forecastfox_s3.addon.version = addon.version;
 		if ((addon.version != '') && (addon.version != '0')) {
-			setTimeout(forecastfox_s3.addon.checkPrefs, 2000);
+			setTimeout(function() { forecastfox_s3.addon.checkPrefs(); }, 2000);
 		}
 	});
 }

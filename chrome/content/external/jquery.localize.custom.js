@@ -106,27 +106,42 @@
       if (options.callback) options.callback(pkg, lang, data);
     }
 
-    function json(file, pkg, lang, level) {
-      if (options.pathPrefix) file = options.pathPrefix + "/" + file;
-      file = Forecastfox.url(file);
-      var req = new XMLHttpRequest();
-      req.open("GET", file, false);
-      req.overrideMimeType("application/json");
-      var d = "{}"
-      try {
-        req.send(null);
-        d = req.responseText;
-      } catch (e) {}
-      var scratch = $('#scratch_space');
-      if (scratch.length > 0) {
-        scratch.html(d);
-        d = scratch.html();
-      }
-      d = JSON.parse(d);
-      $.extend(intermediate, d);
-      callback(pkg, lang, intermediate);
-      loadLanguage(pkg, lang, level + 1);
-    }
+	//------------------------------------------------------------------------
+	function json(file, pkg, lang, level) {
+		var async = false;
+		if (options.pathPrefix) file = options.pathPrefix + "/" + file;
+		file = Forecastfox.url(file);
+		var req = new XMLHttpRequest();
+		req.open("GET", file, async);
+		req.overrideMimeType("application/json");
+		if (async) {
+			req.onreadystatechange = function () {
+				if (req.readyState == 4) {
+					json_done(req.responseText, pkg, lang, level);
+				}
+			};
+		}
+		try {
+			req.send(null);
+			if (! async) {
+				json_done(req.responseText, pkg, lang, level);
+			}
+		} catch (e) {}
+	}
+	//------------------------------------------------------------------------
+	function json_done(responseText, pkg, lang, level) {
+		var d = responseText;
+		var scratch = $('#scratch_space');
+		if (scratch.length > 0) {
+			scratch.html(d);
+			d = scratch.html();
+		}
+		d = JSON.parse(d);
+		$.extend(intermediate, d);
+		callback(pkg, lang, intermediate);
+		loadLanguage(pkg, lang, level + 1);
+	}
+	//------------------------------------------------------------------------
 
     var lang = $.localize.normalize(options && options.language ? options.language : $.localize.browser);
     if (options.skipLanguage && options.skipLanguage == lang) return;

@@ -395,16 +395,14 @@ that looks like the first example.
       dispatcher.set_options(get_options());
     });
 
-	try {
-	    $('#drag-hint').tooltip({
-	      delay: 30,
-	      bodyHandler: function() {
-	        return $('#drag-hint-tooltip').html();
-	      },
-	      extraClass: 'callout border-callout',
-	      left: -30,
-	      top: 15
-	    });
-	} catch(e) {};
+    $('#drag-hint').tooltip({
+      delay: 30,
+      bodyHandler: function() {
+        return $('#drag-hint-tooltip').html();
+      },
+      extraClass: 'callout border-callout',
+      left: -30,
+      top: 15
+    });
   });
 })();

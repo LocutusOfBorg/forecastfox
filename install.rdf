@@ -6,7 +6,7 @@
   <Description about="urn:mozilla:install-manifest">
     <em:id>forecastfox@s3_fix_version</em:id>
     <em:name>Forecastfox (fix version)</em:name>
-    <em:version>2.2.4a</em:version>
+    <em:version>2.2.4b</em:version>
 
     <!-- Firefox -->
     <em:targetApplication>

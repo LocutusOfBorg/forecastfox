@@ -69,7 +69,7 @@ $(function() {
     // location info cache
     var locs;
 
-    setTimeout(load_google_maps, 1000);
+    setTimeout(function(){ load_google_maps(); }, 1000);
 
     function load_google_maps() {
       var i18n_2 = new I18n(logging, observers, datastore);
@@ -324,7 +324,7 @@ $(function() {
           self._locate_on_accuweather();
           $('#' + self.id() + ' button').click(function() {
             self.select_location();
-            setTimeout(hide_dialogues, 1000);
+            setTimeout(function(){ hide_dialogues(); }, 1000);
             return false;
           });
 

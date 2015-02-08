@@ -27,6 +27,9 @@
  *
  * @todo    Add callbacks to the DOM manipulation methods, so that events can be bound
  *          to template nodes after creation.
+ * 
+ * Oleksandr Popov, 2015
+ *  compile-function removed for review AMO
  */
 (function($){
 
@@ -51,15 +54,11 @@
         if ( options && options['regx'] ) options.regx = this.regx[ options.regx ];
 
 		this.options = $.extend({
-			compile: 		false,
 			regx:           this.regx.standard
 		}, options || {});
 
 		this.html = html;
 
-		if (this.options.compile) {
-			this.compile();
-		}
 		this.isTemplate = true;
 	};
 
@@ -124,80 +123,37 @@
 		 * @param 	values 	An object of properties mapped to template variables
 		 */
 		apply: function(values) {
-			if (this.options.compile) {
-				return this.compiled(values);
-			} else {
-				var tpl = this;
-				var fm = this.helpers;
-
-				var fn = function(m, name, format, args) {
-					if (format) {
-						if (format.substr(0, 5) == "this."){
-							return tpl.call(format.substr(5), values[name], values);
-						} else {
-							if (args) {
-								// quoted values are required for strings in compiled templates,
-								// but for non compiled we need to strip them
-								// quoted reversed for jsmin
-								var re = /^\s*['"](.*)["']\s*$/;
-								args = args.split(',');
-
-								for(var i = 0, len = args.length; i < len; i++) {
-									args[i] = args[i].replace(re, "$1");
-								}
-								args = [values[name]].concat(args);
-							} else {
-								args = [values[name]];
-							}
-
-							return fm[format].apply(fm, args);
-						}
-					} else {
-						return values[name] !== undefined ? values[name] : "${"+name+"}";
-					}
-				};
-
-				return this.html.replace(this.options.regx, fn);
-			}
-		},
-
-		/**
-		 * Compile a template for speedier usage
-		 */
-		compile: function() {
-			var sep = $.browser.mozilla ? "+" : ",";
+			var tpl = this;
 			var fm = this.helpers;
 
-			var fn = function(m, name, format, args){
+			var fn = function(m, name, format, args) {
 				if (format) {
-					args = args ? ',' + args : "";
-
-					if (format.substr(0, 5) != "this.") {
-						format = "fm." + format + '(';
+					if (format.substr(0, 5) == "this."){
+						return tpl.call(format.substr(5), values[name], values);
 					} else {
-						format = 'this.call("'+ format.substr(5) + '", ';
-						args = ", values";
+						if (args) {
+							// quoted values are required for strings in compiled templates,
+							// but for non compiled we need to strip them
+							// quoted reversed for jsmin
+							var re = /^\s*['"](.*)["']\s*$/;
+							args = args.split(',');
+
+							for(var i = 0, len = args.length; i < len; i++) {
+								args[i] = args[i].replace(re, "$1");
+							}
+							args = [values[name]].concat(args);
+						} else {
+							args = [values[name]];
+						}
+
+						return fm[format].apply(fm, args);
 					}
 				} else {
-					args= ''; format = "(values['" + name + "'] == undefined ? '' : ";
+					return values[name] !== undefined ? values[name] : "${"+name+"}";
 				}
-				return "'"+ sep + format + "values['" + name + "']" + args + ")"+sep+"'";
 			};
 
-			var body;
-
-			if ($.browser.mozilla) {
-				body = "this.compiled = function(values){ return '" +
-					   this.html.replace(/\\/g, '\\\\').replace(/(\r\n|\n)/g, '\\n').replace(/'/g, "\\'").replace(this.options.regx, fn) +
-						"';};";
-			} else {
-				body = ["this.compiled = function(values){ return ['"];
-				body.push(this.html.replace(/\\/g, '\\\\').replace(/(\r\n|\n)/g, '\\n').replace(/'/g, "\\'").replace(this.options.regx, fn));
-				body.push("'].join('');};");
-				body = body.join('');
-			}
-			eval(body);
-			return this;
+			return this.html.replace(this.options.regx, fn);
 		}
 	});
 
