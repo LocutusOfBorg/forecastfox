@@ -13,6 +13,7 @@ var ForecastfoxOverlay = {
   _templator: null,
   _observers: null,
   _customization_active: false,
+  _firefox_started_now: true,
 
   /**
    * browser window load method so we can setup the extension.
@@ -136,7 +137,8 @@ var ForecastfoxOverlay = {
     var target_toolbar = toolbar_prefs.parent;
     var target_position = toolbar_prefs.position;
     var display = toolbar_prefs.display;
-    bgp.positioner.update_position(window, target_toolbar, target_position);
+    bgp.positioner.update_position(window, target_toolbar, target_position, this._firefox_started_now);
+    this._firefox_started_now = false;
 
     if (bgp.locations.is_error()) {
       this.render_error();
@@ -183,31 +185,29 @@ var ForecastfoxOverlay = {
     this._add_os_attr();
 
 	//----------------------------------------------------------------------------
-	var statusbar = doc.getElementById("status-bar");
-	var bottombox = doc.getElementById("forecastfox-bottombox");
-	var bottombox_is_hidden = true;
-	var addonbar = doc.getElementById('addon-bar');
-	var is_normal_statusbar = true;
-	if (addonbar && addonbar.parentNode.id == 'navigator-toolbox') {
-		if (statusbar && (statusbar.parentNode.id == 'addon-bar')) {
-			is_normal_statusbar = false;
-		}
-	}
-	//----------------------------------------------------------------------------
 	if (this._customization_active) {
+		var statusbar = doc.getElementById("status-bar");
+		var bottombox = doc.getElementById("forecastfox-bottombox");
+		var bottombox_is_hidden = true;
+		var addonbar = doc.getElementById('addon-bar');
+		var is_normal_statusbar = true;
+		if (addonbar && addonbar.parentNode.id == 'navigator-toolbox') {
+			if (statusbar && (statusbar.parentNode.id == 'addon-bar')) {
+				is_normal_statusbar = false;
+			}
+		}
+		//----------------------------------------------------------------------
 		if (is_normal_statusbar && (toolbar.parentNode != bottombox)) {
 			bottombox_is_hidden = true;
 		} else {
 			bottombox_is_hidden = false;
 		}
+		//----------------------------------------------------------------------
+		if (bottombox) {
+			bottombox.hidden = bottombox_is_hidden;
+		}
+		//----------------------------------------------------------------------
 		this.toggle_drag_icon(true);
-	} else if (toolbar.parentNode != bottombox) {
-		bottombox_is_hidden = true;
-	} else {
-		bottombox_is_hidden = false;
-	}
-	if (bottombox) {
-		bottombox.hidden = bottombox_is_hidden;
 	}
 	this._rendered_location = bgp.locations.selected();
   },

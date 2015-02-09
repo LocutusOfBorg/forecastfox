@@ -105,65 +105,82 @@ change_url : function(data) {
 	}
 },
 //-------------------------------------------------------------------------
-  fetch_feed_data: function (code, feed_type) {
-    var self = this;
-    var lang_code = this._i18n.accucode();
-    if (lang_code === null)
-      lang_code = this._i18n.accucode('en');
+request_2_url : function(self, dfr, code, lang_code, feed_type, request_count) {
+	var url = this._t.render((feed_type == 'cc' ? CC_URL : FORECAST_URL), {
+		location: encodeURIComponent(code),
+		lang: encodeURIComponent(lang_code),
+		rnd: (new Date()).getTime()
+	});
 
-    var url = this._t.render((feed_type == 'cc' ? CC_URL : FORECAST_URL), {
-      location: encodeURIComponent(code),
-      lang: encodeURIComponent(lang_code),
-      rnd: (new Date()).getTime()
-    });
+	self._logger.debug('Fetching data for ' + code + ' from ' + url);
 
-    this._logger.debug('Fetching data for ' + code + ' from ' + url);
+	request_count -= 1;
+	self._feed_xhr[feed_type] = $.ajax({url: url, type: "GET", timeout: 20*1000})
+	.fail(function (xmlHttpReq, status, error) {
+		self._logger.error("feed update ("+code+","+feed_type+") failed: " + (status || "") + " " + (error || ""));
+		self._feed_xhr[feed_type] = null;
 
-    if (this._feed_xhr[feed_type])
-      this._feed_xhr[feed_type].abort();
+		var errorType = FeedError.UNKNOWN;
+		if (status == 'timeout') {
+			errorType = FeedError.CONNECTION;
+		}
+		dfr.reject(errorType);
+	}).done(function(data, status) {
+		self._logger.debug("fetch feed data success! for " + code +","+feed_type);
+		self._feed_xhr[feed_type] = null;
+		self.change_url(data);
+		try {
+			var json = $.xml2json(data);
+			if (!json) {
+				dfr.reject(FeedError.UNKNOWN);
+				return;
+			}
+			if ('error' in json) {
+				if (json.error == 'Invalid location, or no location found') {
+					dfr.reject(FeedError.LOCATION_NOT_FOUND);
+				} else {
+					dfr.reject(FeedError.UNKNOWN);
+				}
+				return;
+			}
+			if ((feed_type == 'forecast') && (! json.forecast)) {
+				if (request_count > 0) {
+					return self.request_2_url(self, dfr, code, lang_code, feed_type, request_count);
+				} else {
+					dfr.reject(FeedError.CONNECTION);
+					return;
+				}
+			}
+			json.locale = self._i18n.locale();
+		} catch (e) {
+			self._logger.exception('feed data ('+code+') failed parse', e);
+			dfr.reject(FeedError.UNKNOWN);
+			return;
+		}
+		dfr.resolve(json);
+	});
+},
+//-------------------------------------------------------------------------
+fetch_feed_data: function (code, feed_type) {
+	var self = this;
+	var lang_code = this._i18n.accucode();
+	if (lang_code === null) {
+		lang_code = this._i18n.accucode('en');
+	}
 
-    var dfr = $.Deferred();
-	var _this = this;
-    if (!navigator.onLine)
-      return dfr.reject(FeedError.CONNECTION);
+	if (this._feed_xhr[feed_type]) {
+		this._feed_xhr[feed_type].abort();
+	}
 
-    this._feed_xhr[feed_type] = $.ajax({url: url, type: "GET", timeout: 20*1000})
-      .fail(function (xmlHttpReq, status, error) {
-        self._logger.error("feed update ("+code+","+feed_type+") failed: " + (status || "") + " " + (error || ""));
-        self._feed_xhr[feed_type] = null;
+	var dfr = $.Deferred();
+	if (!navigator.onLine) {
+		return dfr.reject(FeedError.CONNECTION);
+	}
 
-        var errorType = FeedError.UNKNOWN;
-        if (status == 'timeout')
-          errorType = FeedError.CONNECTION;
-        dfr.reject(errorType);
-      }).done(function(data, status) {
-        self._logger.debug("fetch feed data success! for " + code +","+feed_type);
-        self._feed_xhr[feed_type] = null;
-	_this.change_url(data);
+	this.request_2_url(self, dfr, code, lang_code, feed_type, 2);
 
-        try {
-          var json = $.xml2json(data);
-          if (!json) {
-            dfr.reject(FeedError.UNKNOWN);
-            return;
-          }
-          if ('error' in json) {
-            if (json.error == 'Invalid location, or no location found')
-              dfr.reject(FeedError.LOCATION_NOT_FOUND);
-            else
-              dfr.reject(FeedError.UNKNOWN);
-            return;
-          }
-          json.locale = self._i18n.locale();
-        } catch (e) {
-          self._logger.exception('feed data ('+code+') failed parse', e);
-          dfr.reject(FeedError.UNKNOWN);
-          return;
-        }
-        dfr.resolve(json);
-      });
-    return dfr;
-  }
+	return dfr;
+}
 });
 
 })();

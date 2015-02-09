@@ -121,12 +121,16 @@
 				}
 			};
 		}
+		var d = "{}"
 		try {
 			req.send(null);
 			if (! async) {
-				json_done(req.responseText, pkg, lang, level);
+				d = req.responseText;
 			}
 		} catch (e) {}
+		if (! async) {
+			json_done(d, pkg, lang, level);
+		}
 	}
 	//------------------------------------------------------------------------
 	function json_done(responseText, pkg, lang, level) {

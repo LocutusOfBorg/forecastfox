@@ -27,7 +27,8 @@ var Positioner = Class.extend({
     }
   },
 
-  update_position: function Position_window(win, toolbar, position) {
+  update_position: function Position_window(win, toolbar, position, firefox_started_now) {
+    var self = this;
     var doc = win.document, p;
     var addonbar = doc.getElementById('addon-bar');
     if (toolbar == 'DEFAULT') {
@@ -105,32 +106,38 @@ var Positioner = Class.extend({
         break;
       }
       parent = parent.parentNode;
+      if (firefox_started_now) {
+	setTimeout(function(){ self.check_addon_bar(doc, addonbar, newbar) }, 1000);
+      } else {
+	self.check_addon_bar(doc, addonbar, newbar);
+      }
     }
-
+  },
 	//----------------------------------------------------------------------------
-	var statusbar = doc.getElementById("status-bar");
-	var bottombox = doc.getElementById("forecastfox-bottombox");
-	if (bottombox) {
-		var is_normal_statusbar = true;
-		if (addonbar && addonbar.parentNode.id == 'navigator-toolbox') {
-			if (statusbar && (statusbar.parentNode.id == 'addon-bar')) {
-				is_normal_statusbar = false;
+	check_addon_bar: function(doc, addonbar, newbar) {
+		var statusbar = doc.getElementById("status-bar");
+		var bottombox = doc.getElementById("forecastfox-bottombox");
+		if (bottombox) {
+			var is_normal_statusbar = true;
+			if (addonbar && addonbar.parentNode.id == 'navigator-toolbox') {
+				if (statusbar && (statusbar.parentNode.id == 'addon-bar')) {
+					is_normal_statusbar = false;
+				}
 			}
-		}
-		if (is_normal_statusbar) {
-			if ((! newbar.parentNode) || (newbar.parentNode && (newbar.parentNode == bottombox))) {
-				statusbar.appendChild(newbar);
+			if (is_normal_statusbar) {
+				if ((! newbar.parentNode) || (newbar.parentNode && (newbar.parentNode == bottombox))) {
+					statusbar.appendChild(newbar);
+				}
+				bottombox.hidden = true;
+			} else if (newbar.parentNode && newbar.parentNode == statusbar) {
+				bottombox.appendChild(newbar);
+				bottombox.hidden = false;
+			} else if (newbar.parentNode && newbar.parentNode == bottombox) {
+				bottombox.hidden = false;
+			} else {
+				bottombox.hidden = true;
 			}
-			bottombox.hidden = true;
-		} else if (newbar.parentNode && newbar.parentNode == statusbar) {
-			bottombox.appendChild(newbar);
-			bottombox.hidden = false;
-		} else if (newbar.parentNode && newbar.parentNode == bottombox) {
-			bottombox.hidden = false;
-		} else {
-			bottombox.hidden = true;
 		}
 	}
-
-  }
+	//----------------------------------------------------------------------------
 });
